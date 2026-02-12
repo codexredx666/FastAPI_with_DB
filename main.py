@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 from routes.user_routes import router as user_router
 from routes.ai_response_routes import router as ai_response_router
 from routes.email_routes import router as email_router
+from routes.chat_routes import router as chat_router
 from db import get_db, DATABASE_URL
 from models import Base
 
@@ -39,6 +40,7 @@ app.add_middleware(
 app.include_router(user_router)
 app.include_router(ai_response_router)
 app.include_router(email_router)
+app.include_router(chat_router)
 
 # 5. Database Setup
 engine = create_engine(DATABASE_URL)
@@ -61,7 +63,7 @@ async def chat_with_gemini(request: ChatRequest):
     # List of models to try in order of preference
     # 1.5-flash is standard for AI Studio keys
     # 2.0-flash is for newer/specific key types
-    models_to_try = ['gemini-1.5-flash']
+    models_to_try = ['gemini-pro']
     
     current_model_index = 0
 
